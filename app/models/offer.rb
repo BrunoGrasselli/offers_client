@@ -14,6 +14,8 @@ class Offer
   def self.where(params)
     response = RestClient.get(Settings.api_url, params: generate_params(params))
 
+    check_signature! response
+
     return [] if response.to_str.empty?
 
     body = JSON.parse(response.to_str)
@@ -26,11 +28,17 @@ class Offer
   def self.generate_params(params)
     params.tap do |final_params|
       final_params.merge!(FIXED_PARAMS)
-      final_params[:hash_key] = authentication_hash.request_hash(final_params)
+      final_params[:hash_key] = auth_hash.request_hash(final_params)
     end
   end
 
-  def self.authentication_hash
+  def self.check_signature!(response)
+    raise InvalidResponseSignature unless auth_hash.valid_response?(response.to_str, response.headers[:x_sponsorpay_response_signature])
+  end
+
+  def self.auth_hash
     OffersSDK::AuthenticationHash.new(Settings.api_key)
   end
+
+  class InvalidResponseSignature < StandardError; end
 end

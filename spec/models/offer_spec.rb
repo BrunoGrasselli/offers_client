@@ -6,13 +6,15 @@ describe Offer do
   describe "#where" do
     let(:status) { 200 }
     let(:body) { '' }
+    let(:signature) { 'fabe540778d200b7f93b2710b39939dc267e4294' }
 
     before do
       api_key = 'b07a12df7d52e6c118e5d47d3f9e60135b109a1f'
       authentication_hash = OffersSDK::AuthenticationHash.new(api_key)
       authentication_hash.stub(:request_hash).with(anything).and_return(1234)
       OffersSDK::AuthenticationHash.stub(:new).with(api_key).and_return(authentication_hash)
-      stub_request(:get, "http://localhost:3000/offers.json?appid=157&hash_key=1234&page=2&pub0=campaign1&uid=12").to_return(body: body, status: status)
+      stub_request(:get, "http://localhost:3000/offers.json?appid=157&hash_key=1234&page=2&pub0=campaign1&uid=12")
+                  .to_return(body: body, status: status, headers: { 'X-Sponsorpay-Response-Signature' => signature })
     end
 
     after do
@@ -20,6 +22,7 @@ describe Offer do
     end
 
     context "when api returns offers" do
+      let(:signature) { 'c73a6f3959d59d8a8b3fd90cc23e666defd451ef' }
       let(:body) { %(
         {
           "offers": [
@@ -68,7 +71,15 @@ describe Offer do
       authentication_hash = OffersSDK::AuthenticationHash.new(api_key)
       authentication_hash.should_receive(:request_hash).with({uid: 12, pub0: "campaign1", page:2, appid: 157}).and_return(1234)
       OffersSDK::AuthenticationHash.stub(:new).with(api_key).and_return(authentication_hash)
-      offers = Offer.where(uid: 12, pub0: 'campaign1', page: 2)
+      Offer.where(uid: 12, pub0: 'campaign1', page: 2)
+    end
+
+    context "when response signature is invalid" do
+      let(:signature) { 'invalid' }
+
+      it "raises error" do
+        expect { Offer.where(uid: 12, pub0: 'campaign1', page: 2) }.to raise_error Offer::InvalidResponseSignature
+      end
     end
   end
 end
