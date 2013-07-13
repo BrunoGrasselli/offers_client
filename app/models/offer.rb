@@ -8,7 +8,7 @@ class Offer
   end
 
   def self.where(params)
-    response = RestClient.get 'http://localhost:3000/offers.json', params: params
+    response = RestClient.get(Settings.api_url, params: params)
 
     return [] if response.to_str.empty?
 

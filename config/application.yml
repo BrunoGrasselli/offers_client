@@ -1,0 +1,9 @@
+development:
+  api_url: 'http://localhost:3000/offers.json'
+
+test:
+  api_url: 'http://localhost:3000/offers.json'
+
+production:
+  api_url: 'http://localhost:3002/offers.json'
+
