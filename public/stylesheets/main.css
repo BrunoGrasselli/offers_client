@@ -30,6 +30,11 @@ body {
   padding: 10px;
 }
 
+.offer div {
+  float: left;
+  padding: 5px;
+}
+
 .clear {
   clear: both;
 }

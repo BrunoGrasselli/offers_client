@@ -1,9 +1,14 @@
 <% if offers.any? %>
   <% offers.each do |offer| %>
-    <%= offer.title %>
-    <%= offer.payout %>
-    <%= offer.thumbnail %>
+    <div class="offer">
+      <div class="title"><%= offer.payout %></div>
+      <div class="payout"><%= offer.title %></div>
+      <div class="thumbnail"><img src="<%= offer.thumbnail %>" width="50" height="50" /></div>
+    </div>
   <% end %>
 <% else %>
-  No offers
+  <div class="no_offers">
+    No offers
+  </div>
 <% end %>
+<div class="clear" /></div>
