@@ -13,8 +13,8 @@ describe Offer do
       authentication_hash = OffersSDK::AuthenticationHash.new(api_key)
       authentication_hash.stub(:request_hash).with(anything).and_return(1234)
       OffersSDK::AuthenticationHash.stub(:new).with(api_key).and_return(authentication_hash)
-      stub_request(:get, "http://localhost:3000/offers.json?appid=157&hash_key=1234&page=2&pub0=campaign1&uid=12")
-                  .to_return(body: body, status: status, headers: { 'X-Sponsorpay-Response-Signature' => signature })
+      url = "http://localhost:3000/offers.json?appid=157&device_id=2b6f0cc904d137be2%20e1730235f5664094b%20831186&hash_key=1234&ip=109.235.143.113&locale=de&offer_types=112&page=2&pub0=campaign1&uid=12"
+      stub_request(:get, url).to_return(body: body, status: status, headers: { 'X-Sponsorpay-Response-Signature' => signature })
     end
 
     after do
@@ -69,7 +69,7 @@ describe Offer do
     it "sends all parameters to generate the auth hash" do
       api_key = 'b07a12df7d52e6c118e5d47d3f9e60135b109a1f'
       authentication_hash = OffersSDK::AuthenticationHash.new(api_key)
-      authentication_hash.should_receive(:request_hash).with({uid: 12, pub0: "campaign1", page:2, appid: 157}).and_return(1234)
+      authentication_hash.should_receive(:request_hash).with({:uid=>12, :pub0=>"campaign1", :page=>2, :appid=>157, :offer_types=>112, :device_id=>"2b6f0cc904d137be2 e1730235f5664094b 831186", :locale=>"de", :ip=>"109.235.143.113"}).and_return(1234)
       OffersSDK::AuthenticationHash.stub(:new).with(api_key).and_return(authentication_hash)
       Offer.where(uid: 12, pub0: 'campaign1', page: 2)
     end

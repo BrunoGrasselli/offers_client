@@ -2,7 +2,11 @@ class Offer
   attr_reader :title, :payout, :thumbnail
 
   FIXED_PARAMS = {
-    appid: 157
+    appid: 157,
+    offer_types: 112,
+    device_id: '2b6f0cc904d137be2 e1730235f5664094b 831186',
+    locale: 'de',
+    ip: '109.235.143.113'
   }
 
   def initialize(attributes={})
