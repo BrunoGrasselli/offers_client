@@ -4,6 +4,7 @@ class OffersClient < Sinatra::Base
   end
 
   get "/offers" do
-    params.inspect
+    offers = Offer.where(params[:offer])
+    erb :offers, locals: {offers: offers}
   end
 end

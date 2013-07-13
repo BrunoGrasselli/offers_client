@@ -1,0 +1,9 @@
+<% if offers.any? %>
+  <% offers.each do |offer| %>
+    <%= offer.title %>
+    <%= offer.payout %>
+    <%= offer.thumbnail %>
+  <% end %>
+<% else %>
+  No offers
+<% end %>
