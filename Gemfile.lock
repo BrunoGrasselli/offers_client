@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/BrunoGrasselli/offers_sdk.git
+  revision: 7cf805f35638dcba609b4f2014a43c327df6837e
+  specs:
+    offers_sdk (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -71,6 +77,7 @@ PLATFORMS
 DEPENDENCIES
   guard
   guard-rspec
+  offers_sdk!
   rack-test
   rest-client
   rspec

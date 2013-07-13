@@ -4,6 +4,7 @@ gem 'sinatra'
 gem 'thin'
 gem 'rest-client'
 gem 'settingslogic'
+gem 'offers_sdk', github: 'BrunoGrasselli/offers_sdk'
 
 group :test do
   gem 'webmock'

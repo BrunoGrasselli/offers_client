@@ -4,12 +4,22 @@ include WebMock::API
 
 describe Offer do
   describe "#where" do
+    let(:status) { 200 }
+    let(:body) { '' }
+
     before do
-      stub_request(:get, "http://localhost:3000/offers.json?appid=157&page=2&pub0=campaign1&uid=12").to_return(body: body, status: status)
+      api_key = 'b07a12df7d52e6c118e5d47d3f9e60135b109a1f'
+      authentication_hash = OffersSDK::AuthenticationHash.new(api_key)
+      authentication_hash.stub(:request_hash).with(anything).and_return(1234)
+      OffersSDK::AuthenticationHash.stub(:new).with(api_key).and_return(authentication_hash)
+      stub_request(:get, "http://localhost:3000/offers.json?appid=157&hash_key=1234&page=2&pub0=campaign1&uid=12").to_return(body: body, status: status)
+    end
+
+    after do
+      OffersSDK::AuthenticationHash.unstub(:new)
     end
 
     context "when api returns offers" do
-      let(:status) { 200 }
       let(:body) { %(
         {
           "offers": [
@@ -45,13 +55,20 @@ describe Offer do
     end
 
     context "when api doesn't return offers" do
-      let(:status) { 200 }
       let(:body) { '' }
 
       it "returns an empty array" do
         offers = Offer.where(uid: 12, pub0: 'campaign1', page: 2)
         offers.should eq []
       end
+    end
+
+    it "sends all parameters to generate the auth hash" do
+      api_key = 'b07a12df7d52e6c118e5d47d3f9e60135b109a1f'
+      authentication_hash = OffersSDK::AuthenticationHash.new(api_key)
+      authentication_hash.should_receive(:request_hash).with({uid: 12, pub0: "campaign1", page:2, appid: 157}).and_return(1234)
+      OffersSDK::AuthenticationHash.stub(:new).with(api_key).and_return(authentication_hash)
+      offers = Offer.where(uid: 12, pub0: 'campaign1', page: 2)
     end
   end
 end
