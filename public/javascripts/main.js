@@ -8,6 +8,8 @@ $(document).ready(function() {
 
     $.ajax(url, {data: $(this).serialize(), success: function(response) {
       $("#results").html(response);
+    }, error: function(response) {
+      $("#results").html("We're sorry, but something went wrong.");
     }});
   });
 });
