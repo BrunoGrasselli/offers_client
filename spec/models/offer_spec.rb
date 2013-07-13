@@ -50,7 +50,7 @@ describe Offer do
 
       it "returns an empty array" do
         offers = Offer.where(uid: 12, pub0: 'campaign1', page: 2)
-        offers.should be_empty
+        offers.should eq []
       end
     end
   end
