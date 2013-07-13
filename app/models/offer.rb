@@ -10,6 +10,8 @@ class Offer
   def self.where(params)
     response = RestClient.get 'http://localhost:3000/offers.json', params: params
 
+    return '' if response.to_str.empty?
+
     body = JSON.parse(response.to_str)
 
     body['offers'].map do |offer|

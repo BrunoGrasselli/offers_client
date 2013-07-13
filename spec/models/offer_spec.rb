@@ -43,6 +43,16 @@ describe Offer do
         offers[1].title.should eq 'title2'
       end
     end
+
+    context "when api doesn't return offers" do
+      let(:status) { 200 }
+      let(:body) { '' }
+
+      it "returns an empty array" do
+        offers = Offer.where(uid: 12, pub0: 'campaign1', page: 2)
+        offers.should be_empty
+      end
+    end
   end
 end
 
