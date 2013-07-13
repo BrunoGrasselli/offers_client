@@ -1,0 +1,35 @@
+body {
+  background-color: #fff;
+  font-family: arial;
+  font-size: 15px;
+}
+
+#main_container {
+  width: 1016px;
+  border: 1px solid #C5433A;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#form {
+  position: relative;
+  padding: 10px;
+}
+
+#form label {
+  padding-right: 5px;
+  padding-left: 20px;
+}
+
+#form p {
+  float: left;
+}
+
+#results {
+  padding: 10px;
+}
+
+.clear {
+  clear: both;
+}

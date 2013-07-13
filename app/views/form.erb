@@ -1,14 +1,31 @@
-<form action="/offers">
-  <p>
-    <label for="uid">User Id</label><input id="uid" name="offer[uid]" type="text" />
-  </p>
-  <p>
-    <label for="pub0">Pub0</label><input id="pub0" name="offer[pub0]" type="text" />
-  </p>
-  <p>
-    <label for="page">Page</label><input id="page" name="offer[page]" type="text" />
-  </p>
-  <p>
-    <input type="submit" value="Search" />
-  </p>
-</form>
+<html>
+  <head>
+    <title>Offers</title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+  </head>
+  <body>
+    <div id="main_container">
+      <div id="form">
+        <form action="/offers">
+          <p>
+            <label for="uid">User Id</label><input id="uid" name="offer[uid]" type="text" />
+          </p>
+          <p>
+            <label for="pub0">Pub0</label><input id="pub0" name="offer[pub0]" type="text" />
+          </p>
+          <p>
+            <label for="page">Page</label><input id="page" name="offer[page]" type="text" />
+          </p>
+          <p>
+            <input type="submit" value="Search" />
+          </p>
+        </form>
+      </div>
+      <div id="results" class="clear">
+        No offers
+      </div>
+    </div>
+  </body>
+</html>
