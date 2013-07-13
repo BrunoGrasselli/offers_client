@@ -1,5 +1,9 @@
 class OffersClient < Sinatra::Base
   get "/" do
-    'Hello World!'
+    erb :form
+  end
+
+  get "/offers" do
+    params.inspect
   end
 end
