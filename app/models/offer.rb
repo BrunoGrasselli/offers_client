@@ -1,6 +1,10 @@
 class Offer
   attr_reader :title, :payout, :thumbnail
 
+  FIXED_PARAMS = {
+    appid: 157
+  }
+
   def initialize(attributes={})
     @title = attributes[:title]
     @payout = attributes[:payout]
@@ -8,7 +12,7 @@ class Offer
   end
 
   def self.where(params)
-    response = RestClient.get(Settings.api_url, params: params)
+    response = RestClient.get(Settings.api_url, params: params.merge(FIXED_PARAMS))
 
     return [] if response.to_str.empty?
 

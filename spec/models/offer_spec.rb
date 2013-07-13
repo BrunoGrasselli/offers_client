@@ -5,7 +5,7 @@ include WebMock::API
 describe Offer do
   describe "#where" do
     before do
-      stub_request(:get, "http://localhost:3000/offers.json?page=2&pub0=campaign1&uid=12").to_return(body: body, status: status)
+      stub_request(:get, "http://localhost:3000/offers.json?appid=157&page=2&pub0=campaign1&uid=12").to_return(body: body, status: status)
     end
 
     context "when api returns offers" do
