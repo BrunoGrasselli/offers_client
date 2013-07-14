@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'webmock'
-include WebMock::API
 
 describe Offer do
   describe "#where" do
