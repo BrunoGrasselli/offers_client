@@ -10,7 +10,7 @@ describe OffersClient do
     end
   end
 
-  describe "offers with GET" do
+  describe "/offers with GET" do
     before do
       Offer.stub(:where).with(anything).and_return([])
     end
@@ -49,7 +49,7 @@ describe OffersClient do
         Offer.stub(:where).with({'uid' => '10', 'pub0' => 'campaign', 'page' => '3'}).and_return([])
       end
 
-      it "displays a message" do
+      it "displays the 'No offers' message" do
         get '/offers', offer: {uid: 10, pub0: 'campaign', page: 3}
         last_response.body.should include 'No offers'
       end
